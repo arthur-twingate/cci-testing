@@ -9,12 +9,12 @@ jobs:
       - run:
           name: Check IP of protected resource prior to Twingate Connecting
           command: |
+            sudo apt update -yq
             sudo apt install -yq dnsutils
             dig +short www.kittens.com
       - run:
           name: Install and connect to Twingate
           command: |
-            sudo apt-get update
             sudo apt-get install ca-certificates
             echo "deb [trusted=yes] https://packages.twingate.com/apt/ /" | sudo tee /etc/apt/sources.list.d/twingate.list
             sudo apt-get update
