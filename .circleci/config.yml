@@ -7,22 +7,22 @@ jobs:
       image: ubuntu-2204:2022.04.1
     steps:
       - run:
-          name: Check IP of protected resource prior to Twingate Connecting
+          name: Check IP of protected resource prior to Twingate Connecting (Should be 34.206.39.153)
           command: |
-            sudo apt update -yq
-            sudo apt install -yq dnsutils
+            sudo apt update -yq > /dev/null
+            sudo apt install -yq dnsutils > /dev/null
             dig +short www.kittens.com
       - run:
           name: Install and connect to Twingate
           command: |
-            sudo apt-get install ca-certificates
+            sudo apt-get install ca-certificates > /dev/null
             echo "deb [trusted=yes] https://packages.twingate.com/apt/ /" | sudo tee /etc/apt/sources.list.d/twingate.list
-            sudo apt-get update
-            sudo apt-get install twingate
+            sudo apt-get update > /dev/null
+            sudo apt-get install twingate > /dev/null
             echo "ewogICJ2ZXJzaW9uIjogIjEiLAogICJuZXR3b3JrIjogInRyaXBsZWdhdGUudHdpbmdhdGUuY29tIiwKICAic2VydmljZV9hY2NvdW50X2lkIjogImJkYTdlY2MyLTQ5ZjMtNDBmNy1iZmZiLTIyY2Y0MTQ4NjVmNiIsCiAgInByaXZhdGVfa2V5IjogIi0tLS0tQkVHSU4gUFJJVkFURSBLRVktLS0tLVxuTUlHSEFnRUFNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VIQkcwd2F3SUJBUVFnV2JOSUswTTIwc0lQSjVXb1xuZzBXbXdNbmxxZDJJY2F0SGp4bFlxa1VGNW95aFJBTkNBQVFod09EbXp2cG4xNk91Ym5JWUdOVW52TFlOelp3UlxuM0EzYmpsMkVSK2dMN2VSVTY1dmhsNGczT0p6dm42c1lVc2dvcXJETCtwWGRKdlpTVVAyQ0JPdXZcbi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0iLAogICJrZXlfaWQiOiAiQU5VX2Y1dS1PclFCNWFabWJvWnkyekpYU3lVNEF0em1DQmY1M3NHLWg0YyIsCiAgImV4cGlyZXNfYXQiOiAiMjAyNC0wMS0xMFQxNzo0ODozMSswMDowMCIsCiAgImxvZ2luX3BhdGgiOiAiL2FwaS92Mi9oZWFkbGVzc19ub2RlL2xvZ2luIgp9" | base64 -d | sudo twingate setup --headless=-
             sudo twingate start
       - run:
-          name: Get IP of protected resource
+          name: Get IP of protected resource (Should be in CGNAT Range)
           command: |
             dig +short www.kittens.com
 workflows:
