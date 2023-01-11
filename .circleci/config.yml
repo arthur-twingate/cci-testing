@@ -3,8 +3,8 @@
 version: 2.1
 jobs:
   say-hello:
-    docker:
-      - image: ubuntu-2204:2022.04.1
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
       - run:
           name: Check IP of protected resource prior to Twingate Connecting
