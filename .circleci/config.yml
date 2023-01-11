@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Get Twingate log output
           command: |
-            sudo journalctl -u twingate --no-pager | tail -n 80          
+            sudo journalctl -u twingate --no-pager | tail -n 250         
 workflows:
   say-hello-workflow:
     jobs:
