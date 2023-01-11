@@ -1,0 +1,31 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+jobs:
+  say-hello:
+    docker:
+      - image: ubuntu-2204:2022.04.1
+    steps:
+      - run:
+          name: Check IP of protected resource prior to Twingate Connecting
+          command: |
+            apt install -yq dnsutils
+            dig +short www.kittens.com
+      - run:
+          name: Install and connect to Twingate
+          command: |
+            sudo apt-get update
+            sudo apt-get install ca-certificates
+            echo "deb [trusted=yes] https://packages.twingate.com/apt/ /" | sudo tee /etc/apt/sources.list.d/twingate.list
+            sudo apt-get update
+            sudo apt-get install twingate
+            echo "CiAgInZlcnNpb24iOiAiMSIsCiAgIm5ldHdvcmsiOiAidHJpcGxlZ2F0ZS50d2luZ2F0ZS5jb20iLAogICJzZXJ2aWNlX2FjY291bnRfaWQiOiAiYmRhN2VjYzItNDlmMy00MGY3LWJmZmItMjJjZjQxNDg2NWY2IiwKICAicHJpdmF0ZV9rZXkiOiAiLS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tXG5NSUdIQWdFQU1CTUdCeXFHU000OUFnRUdDQ3FHU000OUF3RUhCRzB3YXdJQkFRUWdXYk5JSzBNMjBzSVBKNVdvXG5nMFdtd01ubHFkMkljYXRIanhsWXFrVUY1b3loUkFOQ0FBUWh3T0RtenZwbjE2T3VibklZR05VbnZMWU56WndSXG4zQTNiamwyRVIrZ0w3ZVJVNjV2aGw0ZzNPSnp2bjZzWVVzZ29xckRMK3BYZEp2WlNVUDJDQk91dlxuLS0tLS1FTkQgUFJJVkFURSBLRVktLS0tLSIsCiAgImtleV9pZCI6ICJBTlVfZjV1LU9yUUI1YVptYm9aeTJ6SlhTeVU0QXR6bUNCZjUzc0ctaDRjIiwKICAiZXhwaXJlc19hdCI6ICIyMDI0LTAxLTEwVDE3OjQ4OjMxKzAwOjAwIiwKICAibG9naW5fcGF0aCI6ICIvYXBpL3YyL2hlYWRsZXNzX25vZGUvbG9naW4iCn0=" | base64 -d | sudo twingate setup --headless=-
+            sudo twingate start
+      - run:
+          name: Get IP of protected resource
+          command: |
+            dig +short www.kittens.com
+workflows:
+  say-hello-workflow:
+    jobs:
+      - say-hello
