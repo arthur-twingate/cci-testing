@@ -4,12 +4,12 @@ version: 2.1
 jobs:
   say-hello:
     machine:
-      image: ubuntu-2004:202010-01
+      image: ubuntu-2204:2022.04.1
     steps:
       - run:
           name: Check IP of protected resource prior to Twingate Connecting
           command: |
-            apt install -yq dnsutils
+            sudo apt install -yq dnsutils
             dig +short www.kittens.com
       - run:
           name: Install and connect to Twingate
