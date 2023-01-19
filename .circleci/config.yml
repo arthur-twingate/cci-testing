@@ -12,8 +12,9 @@ jobs:
             sudo apt update -yq > /dev/null
             sudo apt install -yq dnsutils > /dev/null
       - run:
-          name: Check IP of protected resource prior to Twingate Connecting (Should be 34.206.39.153)
+          name: Check IP of protected resource prior to Twingate Connecting (Should be 34.206.39.153) && Show current Timestap
           command: |
+            date
             dig +short www.kittens.com
       - run:
           name: Install Twingate
@@ -28,10 +29,20 @@ jobs:
           command: |
             sudo twingate config log-level debug
       - run:
-          name: Start Twingate and get connection status, and then get IP of protected resource (www.kittens.com) which should be in CGNAT Range
+          name: Start Twingate and get connection status
           command: |
-            sudo twingate start
-            dig +short www.kittens.com 
+            sudo twingate start           
+      - run:
+          name: Sleep for 5s and then check Twingate status
+          command: |
+            sleep 5
+            sudo twingate status
+      - run:
+          name: Get current timestamp and then get IP of protected resource (www.kittens.com) which should be in CGNAT Range
+          command: |
+            date
+            dig +short www.kittens.com
+            date
       - run:
           name: Get Twingate log output
           command: |
