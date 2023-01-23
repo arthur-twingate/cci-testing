@@ -15,7 +15,7 @@ jobs:
           name: Check IP of protected resource prior to Twingate Connecting (Should be 34.206.39.153) && Show current Timestap
           command: |
             date
-            dig +short www.kittens.com
+            dig www.kittens.com
       - run:
           name: Install Twingate
           command: |
@@ -38,10 +38,15 @@ jobs:
             sleep 5
             sudo twingate status
       - run:
+          name: Run Netstat and resolvectl
+          command: |
+            netstat -aunp
+            resolvectl status
+      - run:
           name: Get current timestamp and then get IP of protected resource (www.kittens.com) which should be in CGNAT Range
           command: |
             date
-            dig +short www.kittens.com
+            dig www.kittens.com
             date
       - run:
           name: Get Twingate log output
