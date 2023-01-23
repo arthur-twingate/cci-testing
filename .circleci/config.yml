@@ -19,7 +19,7 @@ jobs:
       - run:
           name: start TCPDump
           command: |
-            sudo tcpdump -nni any udp and port 53 -w run.pcap 
+            sudo tcpdump -nni any udp and port 53 -w run.pcap &
 
       - run:
           name: Install Twingate
