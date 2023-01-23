@@ -10,12 +10,17 @@ jobs:
           name: Update Apt & Instal DNSUtils for dig
           command: |
             sudo apt update -yq > /dev/null
-            sudo apt install -yq dnsutils net-tools > /dev/null
+            sudo apt install -yq dnsutils net-tools tcpdump > /dev/null
 #      - run:
 #          name: Check IP of protected resource prior to Twingate Connecting (Should be 34.206.39.153) && Show current Timestap
 #          command: |
 #            date
 #            dig www.kittens.com
+      - run:
+          name: start TCPDump
+          command: |
+            tcpdump -nni any udp and port 53 -w run.pcap 
+
       - run:
           name: Install Twingate
           command: |
@@ -51,7 +56,11 @@ jobs:
       - run:
           name: Get Twingate log output
           command: |
-            sudo journalctl -u twingate --no-pager | tail -n 2500       
+            sudo journalctl -u twingate --no-pager | tail -n 2500    
+      - run:
+           name: echo pcap
+           command: |
+              cat run.pcap   
 workflows:
   say-hello-workflow:
     jobs:
