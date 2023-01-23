@@ -11,11 +11,11 @@ jobs:
           command: |
             sudo apt update -yq > /dev/null
             sudo apt install -yq dnsutils net-tools > /dev/null
-      - run:
-          name: Check IP of protected resource prior to Twingate Connecting (Should be 34.206.39.153) && Show current Timestap
-          command: |
-            date
-            dig www.kittens.com
+#      - run:
+#          name: Check IP of protected resource prior to Twingate Connecting (Should be 34.206.39.153) && Show current Timestap
+#          command: |
+#            date
+#            dig www.kittens.com
       - run:
           name: Install Twingate
           command: |
