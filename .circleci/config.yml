@@ -24,11 +24,11 @@ jobs:
           name: Install Twingate
           command: |
             sudo apt-get install ca-certificates > /dev/null
-#           echo "deb [trusted=yes] https://packages.twingate.com/apt/ /" | sudo tee /etc/apt/sources.list.d/twingate.list
             echo "deb [trusted=yes] https://apt.fury.io/twingate-stg/ /" | sudo tee /etc/apt/sources.list.d/fury.list
             sudo apt-get update > /dev/null
             sudo apt-get install twingate-stg > /dev/null
             echo "ewogICJ2ZXJzaW9uIjogIjEiLAogICJuZXR3b3JrIjogInRyaXBsZWdhdGUudHdpbmdhdGUuY29tIiwKICAic2VydmljZV9hY2NvdW50X2lkIjogImJkYTdlY2MyLTQ5ZjMtNDBmNy1iZmZiLTIyY2Y0MTQ4NjVmNiIsCiAgInByaXZhdGVfa2V5IjogIi0tLS0tQkVHSU4gUFJJVkFURSBLRVktLS0tLVxuTUlHSEFnRUFNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VIQkcwd2F3SUJBUVFnV2JOSUswTTIwc0lQSjVXb1xuZzBXbXdNbmxxZDJJY2F0SGp4bFlxa1VGNW95aFJBTkNBQVFod09EbXp2cG4xNk91Ym5JWUdOVW52TFlOelp3UlxuM0EzYmpsMkVSK2dMN2VSVTY1dmhsNGczT0p6dm42c1lVc2dvcXJETCtwWGRKdlpTVVAyQ0JPdXZcbi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0iLAogICJrZXlfaWQiOiAiQU5VX2Y1dS1PclFCNWFabWJvWnkyekpYU3lVNEF0em1DQmY1M3NHLWg0YyIsCiAgImV4cGlyZXNfYXQiOiAiMjAyNC0wMS0xMFQxNzo0ODozMSswMDowMCIsCiAgImxvZ2luX3BhdGgiOiAiL2FwaS92Mi9oZWFkbGVzc19ub2RlL2xvZ2luIgp9" | base64 -d | sudo twingate-stg setup --headless=-
+#           echo "deb [trusted=yes] https://packages.twingate.com/apt/ /" | sudo tee /etc/apt/sources.list.d/twingate.list
       - run:
           name: Set Twingate Log Level to Debug
           command: |
