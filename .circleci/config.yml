@@ -32,16 +32,16 @@ jobs:
       - run:
           name: Set Twingate Log Level to Debug
           command: |
-            sudo twingate-stg config log-level debug
+            sudo twingate config log-level debug
       - run:
           name: Start Twingate and get connection status
           command: |
-            sudo twingate-stg start           
+            sudo twingate start           
       - run:
           name: Sleep for 5s and then check Twingate status
           command: |
             sleep 5
-            sudo twingate-stg status
+            sudo twingate status
       - run:
           name: Run Netstat and resolvectl
           command: |
@@ -56,7 +56,7 @@ jobs:
       - run:
           name: Get Twingate log output
           command: |
-            sudo journalctl -u twingate-stg --no-pager | tail -n 2500    
+            sudo journalctl -u twingate --no-pager | tail -n 2500    
       - run:
            name: sleep 30s and push pcap
            command: |
