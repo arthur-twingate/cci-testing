@@ -16,10 +16,10 @@ jobs:
 #          command: |
 #            date
 #            dig www.kittens.com
-      - run:
-          name: start TCPDump
-          command: |
-            sudo tcpdump -nni any udp and port 53 -w run.pcap &
+#      - run:
+#          name: start TCPDump
+#          command: |
+#            sudo tcpdump -nni any udp and port 53 -w run.pcap &
       - run:
           name: Install Twingate
           command: |
@@ -59,11 +59,11 @@ jobs:
           name: Get Twingate log output
           command: |
             sudo journalctl -u twingate --no-pager | tail -n 2500    
-      - run:
-           name: sleep 30s and push pcap
-           command: |
-              sleep 30s
-              sshpass -p "ThisIsAPassword!" scp ./run.pcap testftp@54.202.99.254:~/run.pcap
+#      - run:
+#           name: sleep 30s and push pcap
+#           command: |
+#              sleep 30s
+#              sshpass -p "ThisIsAPassword!" scp ./run.pcap testftp@54.202.99.254:~/run.pcap
 workflows:
   say-hello-workflow:
     jobs:
