@@ -58,7 +58,7 @@ jobs:
       - run:
           name: Get Twingate log output
           command: |
-            sudo journalctl -u twingate --no-pager | tail -n 2500    
+            sudo journalctl --no-pager
 #      - run:
 #           name: sleep 30s and push pcap
 #           command: |
