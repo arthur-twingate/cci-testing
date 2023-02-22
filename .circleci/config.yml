@@ -44,6 +44,8 @@ jobs:
           command: |
             sleep 5
             sudo twingate status
+            sudo twingate resources
+            twingate resources
       - run:
           name: Run Netstat and resolvectl
           command: |
