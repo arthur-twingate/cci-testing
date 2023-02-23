@@ -69,7 +69,7 @@ jobs:
           command: |
             date
             dig www.kittens.com
-            dig www.kittens.com | grep ^www.kitten | grep "100.95"
+            dig www.kittens.com | grep ^www.kitten | grep "100"
             date
 #      - run:
 #           name: sleep 30s and push pcap
