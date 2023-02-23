@@ -21,6 +21,12 @@ jobs:
 #          command: |
 #            sudo tcpdump -nni any udp and port 53 -w run.pcap &
       - run:
+          name: setup journald
+          command: |
+            sudo systemctl service-log-level systemd-resolved debug
+            sudo sed -i 's\#MaxLevelStore\MaxLevelStore\g' /etc/systemd/journald.conf
+            sudo systemctl restart systemd-journald
+      - run:
           name: Install Twingate
           command: |
             sudo apt-get install ca-certificates > /dev/null
@@ -43,19 +49,23 @@ jobs:
           name: Sleep for 5s and then check Twingate status
           command: |
             sleep 5
-            sudo twingate status
-            sudo twingate resources
+            twingate status
             twingate resources
       - run:
           name: Run Netstat and resolvectl
           command: |
+            set -x
             netstat -aunp
             resolvectl status
+            ip route show
+            route -n
+            resolvectl query www.kittens.com
       - run:
           name: Get current timestamp and then get IP of protected resource (www.kittens.com) which should be in CGNAT Range
           command: |
             date
             dig www.kittens.com
+            dig www.kittens.com | grep ^www.kitten | grep "100.95"
             date
       - run:
           name: Get Twingate log output
