@@ -61,16 +61,16 @@ jobs:
             route -n
             resolvectl query www.kittens.com
       - run:
+          name: Get Twingate log output
+          command: |
+            sudo journalctl --no-pager
+      - run:
           name: Get current timestamp and then get IP of protected resource (www.kittens.com) which should be in CGNAT Range
           command: |
             date
             dig www.kittens.com
             dig www.kittens.com | grep ^www.kitten | grep "100.95"
             date
-      - run:
-          name: Get Twingate log output
-          command: |
-            sudo journalctl --no-pager
 #      - run:
 #           name: sleep 30s and push pcap
 #           command: |
