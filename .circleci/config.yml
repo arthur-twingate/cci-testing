@@ -60,6 +60,7 @@ jobs:
             ip route show
             route -n
             resolvectl query www.kittens.com
+            dbus-send --system --print-reply --dest=org.freedesktop.resolve1 /org/freedesktop/resolve1 org.freedesktop.DBus.Properties.Get string:"org.freedesktop.resolve1.Manager" string:"Domains"
       - run:
           name: Get Twingate log output
           command: |
