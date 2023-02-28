@@ -71,6 +71,7 @@ jobs:
             date
             dig www.kittens.com
             dig www.kittens.com | grep ^www.kitten | grep "100"
+            curl www.kittens.com
             date
 workflows:
   say-hello-workflow:
